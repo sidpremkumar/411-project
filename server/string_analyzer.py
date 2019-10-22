@@ -47,7 +47,7 @@ class StringAnalyser(object):
         return ret
 
 
-
 if __name__ == '__main__':
+    # Main method for debugging only
     temp = StringAnalyser()
     temp.string_analysis("test")

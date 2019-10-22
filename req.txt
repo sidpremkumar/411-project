@@ -1,2 +1,4 @@
 ibm_watson
 nltk
+flask
+tweepy
