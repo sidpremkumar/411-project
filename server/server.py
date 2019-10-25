@@ -6,36 +6,62 @@ find me on github at github.com/whichlight
 see my other projects at whichlight.com
 KAWAN!
 '''
+# Local Modules
+import os
 
 # 3rd Party Modules
 from flask import Flask, render_template, request
+from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 
 # Local Modules
 from string_analyzer import StringAnalyser
 from twitter_client import TwitterClient
 
-app = Flask(__name__)
 
 # Global Variables
 string_analyzer = StringAnalyser()
 twitter_client = TwitterClient()
+# Create our flask object
+app = Flask(__name__)
+app.secret_key = "supersekrit"
+blueprint = make_twitter_blueprint(
+    api_key=os.environ['CONSUMER_KEY'],
+    api_secret=os.environ['CONSUMER_SECRET'],
+)
+app.register_blueprint(blueprint, url_prefix="/login")
+
 
 @app.route("/", methods=['GET'])
 def index():
-    return render_template('index.html', name='test')
+    # Function for our homepage
+    # Check if our user is authorized already
+    if not twitter.authorized:
+        # TODO: Maybe do something else if we're already authorized
+        pass
 
-@app.route("/submit_username", methods=['POST'])
-def submit_username():
-    if not request.form.get('username', None):
-        # There was no username passed
-        return render_template('error.html')
+    return render_template('index.html')
 
-    username = request.form['username']
-    tones = twitter_client.analyzer_user(username)
 
-    if not tones:
-        # The user had no tweets
-        return render_template('error.html')
+@app.route("/get_twitter_data", methods=['GET'])
+def get_twitter_data():
+    """Function to authenticate and analyze a twitter user"""
+    # Check if our user is authorized already
+    if not twitter.authorized:
+        # TODO: Redirect a user to another page here
+        return 400
+    response = twitter.get("statuses/home_timeline.json", params={'count': '200'})
+    if response.status_code != 200:
+        # TODO: Something went wrong
+        return 400
+
+    # Loop over the results building a long string with all tweets from their timeline
+    results = response.json()
+    final_string = ""
+    for result in results:
+        final_string += result['text'] + " ."
+
+    # Analyzer our final string and display the info to the user
+    tones = string_analyzer.string_analysis(final_string)
 
     return render_template('twitter_analysis.html', tones=tones)
 
