@@ -10,7 +10,7 @@ KAWAN!
 import os
 
 # 3rd Party Modules
-from flask import Flask, render_template, request
+from flask import Flask, render_template, redirect, request, url_for
 from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 
 # Local Modules
@@ -33,13 +33,41 @@ app.register_blueprint(blueprint, url_prefix="/login")
 
 @app.route("/", methods=['GET'])
 def index():
+    """This is our front page"""
     # Function for our homepage
     # Check if our user is authorized already
-    if not twitter.authorized:
-        # TODO: Maybe do something else if we're already authorized
-        pass
+    if twitter.authorized:
+        return redirect('/homepage')
 
     return render_template('index.html')
+
+
+@app.route("/login", methods=['GET'])
+def login():
+    """Function to authenticate and login a twitter user"""
+    # Check if our user is authorized already
+    import pdb; pdb.set_trace()
+    if twitter.authorized:
+        return redirect('/homepage')
+
+    return redirect(url_for("twitter.login"))
+
+
+@app.route("/homepage", methods=['GET'])
+def homepage():
+    """This is the users homepage"""
+    # Don't let them in if they are not authorized
+    if not twitter.authorized:
+        return redirect('/')
+
+    # Get our users username
+    query = twitter.get("account/settings.json")
+    assert query.ok
+    result = query.json()
+    username = result["screen_name"]
+
+    # Render our home screen with the username
+    return render_template('user/homepage.html', username=username)
 
 
 @app.route("/get_twitter_data", methods=['GET'])
@@ -47,12 +75,12 @@ def get_twitter_data():
     """Function to authenticate and analyze a twitter user"""
     # Check if our user is authorized already
     if not twitter.authorized:
-        # TODO: Redirect a user to another page here
-        return 400
+        return redirect('/homepage')
+
+    # Query twitter for the users tweets
     response = twitter.get("statuses/home_timeline.json", params={'count': '200'})
     if response.status_code != 200:
-        # TODO: Something went wrong
-        return 400
+        return render_template('error.html')
 
     # Loop over the results building a long string with all tweets from their timeline
     results = response.json()
@@ -64,7 +92,6 @@ def get_twitter_data():
     tones = string_analyzer.string_analysis(final_string)
 
     return render_template('twitter_analysis.html', tones=tones)
-
 
 
 
