@@ -43,16 +43,13 @@ class ImageAnalyser(object):
         classifications = response.result['images'][0]['classifiers'][0]['classes']
 
         # Loop over our classifications and add to a final string
-        final_string = ""
+        final_classes = []
         for classification in classifications:
-            new_class = classification['class'] + ". "
-            final_string += new_class
-
-        # Use our string analyzer to analyzer our final string
-        image_tones = string_analyzer.string_analysis(final_string)
+            new_class = classification['class']
+            final_classes.append(new_class)
 
         # Return our tones
-        return image_tones
+        return final_classes
 
 
 if __name__ == '__main__':

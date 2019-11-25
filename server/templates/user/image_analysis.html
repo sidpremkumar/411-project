@@ -1,0 +1,11 @@
+<html>
+    <body>
+        <h1>The tones of your Display Picture:</h1>
+        {% for tone in tones %}
+            <p> * {{ tone }} </p>
+        {% endfor %}
+        <form action="/homepage" method="GET">
+             <input type = "submit" value = "Go Back!">
+        </form>
+    </body>
+</html>

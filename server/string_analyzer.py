@@ -34,14 +34,18 @@ class StringAnalyser(object):
         """
         # Call the API
         tone_analysis = CONFIG.tone(
-            {'text': string},
-            content_type='application/json'
+            tone_input=string,
+            content_type='text/plain'
         ).get_result()
 
         # Format results
         ret = []
         for tone in tone_analysis['document_tone']['tones']:
             ret.append(tone['tone_name'])
+
+        for sentence in tone_analysis['sentences_tone']:
+            for tone in sentence['tones']:
+                ret.append(tone['tone_name'])
 
         # Return
         return ret
