@@ -4,5 +4,11 @@
         <form action="/get_twitter_data" method="GET">
              <input type = "submit" value = "Twitter">
         </form>
+        <form action="/get_image_data" method="GET">
+             <input type = "submit" value = "Image">
+        </form>
+        {% if data['twitter_analysis'] %}
+            <p> Twitter Analysis: {{ data['twitter_analysis'] }} </p>
+        {% endif %}
     </body>
 </html>
