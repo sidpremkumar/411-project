@@ -1,5 +1,24 @@
 <html>
-    <body>
-        <h1>There has been an error!</h1>
+    <head>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body style="background: rgb(2,0,36);background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(101,28,223,1) 0%, rgba(0,212,255,1) 100%);">
+        <div style="text-align: center; vertical-align: middle">
+            <h1>There has been an error!</h1>
+            <p> Status code: {{ status_code }}
+                {% if status_code == 429 %}
+                    - Rate Limit Exceeded
+                {% endif %}
+                {% if status_code == 487 %}
+                    - Database Error
+                {% endif %}
+            </p>
+            <a class="waves-effect waves-light btn" href="/">Go Home</a>
+            <a class="waves-effect waves-light btn" href="/logout">Logout</a>
+        </div>
     </body>
 </html>

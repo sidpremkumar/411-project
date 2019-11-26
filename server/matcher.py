@@ -7,7 +7,7 @@ from image_analysis import ImageAnalyser
 
 
 # Data about our dogs
-# All data was taken from https://www.petfinder.com/
+# All data was taken from https://www.petfinder.com/dog-breeds/
 DOG_TONES = {
     'Labrador': ['Joy', 'Analytical', 'Tentative', 'Tentative', 'Tentative', 'Analytical', 'Joy'],
     'Chihuahua': ['Tentative', 'Joy', 'Tentative'],
@@ -29,6 +29,13 @@ DOG_IMAGES = {
                           'terrier dog', 'dog', 'domestic animal', 'animal', 'Formal Garden',
                           'chestnut color', 'pale yellow color'],
 
+}
+LOCAL_DOG_IMAGES = {
+    'Labrador': 'Labrador.png',
+    'Chihuahua': 'Chihuahua.jpg',
+    'Golden Retriever': 'GoldenRetriever.jpg',
+    'German Shepherd': 'GermanShepherd.jpg',
+    'Yorkshire Terrier': 'YorkshireTerrier.jpg',
 }
 
 

@@ -1,11 +1,23 @@
 <html>
-    <body>
-        <h1>The tones of your Display Picture:</h1>
-        {% for tone in tones %}
-            <p> * {{ tone }} </p>
-        {% endfor %}
-        <form action="/homepage" method="GET">
-             <input type = "submit" value = "Go Back!">
-        </form>
+    <head>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body style="background: rgb(2,0,36);background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(101,28,223,1) 0%, rgba(0,212,255,1) 100%);">
+        <div style="text-align: center; vertical-align: middle">
+            <h1>The tones of your display picture:</h1>
+            <p>
+            {% for tone in tones %}
+                {{ tone }}
+                {% if loop.index != loop.length %}
+                    ,
+                {% endif %}
+            {% endfor %}
+            </p>
+            <a class="waves-effect waves-light btn" href="/login">Go Back</a>
+        </div>
     </body>
 </html>

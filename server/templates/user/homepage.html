@@ -1,27 +1,51 @@
 <html>
-    <body>
-        <h1>Hello {{ username }}. Click below to analyze your Tweets</h1>
-        <form action="/get_twitter_data" method="GET">
-             <input type = "submit" value = "Twitter">
-        </form>
-        <form action="/get_image_data" method="GET">
-             <input type = "submit" value = "Image">
-        </form>
-        <form action="/match_user" method="GET">
-             <input type = "submit" value = "Dog">
-        </form>
-        <form action="/logout" method="GET">
-             <input type = "submit" value = "Logout">
-        </form>
-        {% if data['dog_match'] %}
-            <p> Dog Type: {{ data['dog_match'] }} </p>
-        {% endif %}
-        {% if data['twitter_analysis'] %}
-            <p> Twitter Analysis: {{ data['twitter_analysis'] }} </p>
-        {% endif %}
-        {% if data['image_analysis'] %}
-            <p> Image Analysis: {{ data['image_analysis'] }} </p>
-        {% endif %}
+    <head>
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    </head>
+    <body style="background: rgb(2,0,36);background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(101,28,223,1) 0%, rgba(0,212,255,1) 100%);">
+        <div style="text-align: center; vertical-align: middle">
+            <h1>Hello {{ username }}! </h1>
+            {% if not data['dog_match'] %}
+                <h1> Click below to analyze your Tweets! </h1>
+            {% endif %}
+            {% if data['dog_match'] %}
+                <p> You are a {{ data['dog_match'][0] }}! With a score of {{ data['dog_match'][1] }} </p>
+                <br>
+                <div style="text-align: center;">
+                    <img src="{{local_images[data['dog_match'][0]] }}"/>
+                </div>
+            {% endif %}
+            <a class="waves-effect waves-light btn" href="/get_twitter_data">Get Twitter Analysis</a>
+            <a class="waves-effect waves-light btn" href="/get_image_data">Get Image Analysis</a>
+            <a class="waves-effect waves-light btn" href="/match_user">Match</a>
+            <a class="waves-effect waves-light btn" href="/logout">Logout</a>
+            {% if data['twitter_analysis'] or data['image_analysis'] %}
+                <p>Precomputed Data</p>
+            {% endif %}
+            {% if data['twitter_analysis'] %}
+                <p> Twitter Analysis:
+                    {% for item in data['twitter_analysis'] %}
+                        {{ item }}
+                        {% if loop.index != loop.length %}
+                            ,
+                        {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+            {% if data['image_analysis'] %}
+                <p> Image Analysis:
+                    {% for item in data['image_analysis'] %}
+                        {{ item }}
+                        {% if loop.index != loop.length %}
+                            ,
+                        {% endif %}
+                    {% endfor %}
+                </p>
+            {% endif %}
+        </div>
     </body>
 </html>
