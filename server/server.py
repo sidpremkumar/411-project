@@ -35,9 +35,20 @@ blueprint = make_twitter_blueprint(
 )
 app.register_blueprint(blueprint, url_prefix="/login")
 # Create our database data
-client = MongoClient(f"mongodb://{os.environ['MONGO_USER']}:{os.environ['MONGO_PASS']}>@ds063160.mlab.com:63160/woof-are-you")
-database = client.local
-db_client = database.user_data
+DB_NAME = 'woof-are-you'
+DB_HOST = 'ds063160.mlab.com'
+DB_PORT = 63160
+DB_USER = os.environ['MONGO_USER']
+DB_PASS = os.environ['MONGO_PASS']
+connection = MongoClient(DB_HOST, DB_PORT)
+db = connection[DB_NAME]
+db.authenticate(DB_USER, DB_PASS)
+db_client = db.user_data
+
+
+# client = MongoClient(f"mongodb://{os.environ['MONGO_USER']}:{os.environ['MONGO_PASS']}>@ds063160.mlab.com:63160/woof-are-you")
+# database = client.local
+# db_client = database.user_data
 DATABASE_SCHEMA = {
     'username': None,
     'twitter_analysis': None,
