@@ -157,7 +157,9 @@ def match_user():
         return render_template('error.html', status_code=487)
 
     # If everything went well return the user the data
-    return render_template('user/match.html', tones=to_insert['dog_match'])
+    return render_template('user/match.html',
+                           data=to_insert,
+                           local_images=LOCAL_DOG_IMAGES)
 
 
 @app.route("/get_twitter_data", methods=['GET'])
