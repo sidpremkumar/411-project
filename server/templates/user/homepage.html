@@ -10,6 +10,9 @@
         <form action="/match_user" method="GET">
              <input type = "submit" value = "Dog">
         </form>
+        <form action="/logout" method="GET">
+             <input type = "submit" value = "Logout">
+        </form>
         {% if data['dog_match'] %}
             <p> Dog Type: {{ data['dog_match'] }} </p>
         {% endif %}

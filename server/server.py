@@ -10,7 +10,7 @@ KAWAN!
 import os
 
 # 3rd Party Modules
-from flask import Flask, render_template, redirect, request, url_for
+from flask import Flask, render_template, redirect, request, url_for, session
 from flask_dance.contrib.twitter import make_twitter_blueprint, twitter
 from pymongo import MongoClient
 
@@ -66,6 +66,18 @@ def login():
 
     return redirect(url_for("twitter.login"))
 
+@app.route("/logout", methods=['GET'])
+def logout():
+    """Function to logout a twitter user"""
+    # Check if our user is authorized already
+    if not twitter.authorized:
+        return render_template('error.html')
+
+    # Clear the session of the user
+    session.clear()
+
+    return render_template('index.html')
+
 
 @app.route("/homepage", methods=['GET'])
 def homepage():
@@ -76,6 +88,7 @@ def homepage():
 
     # Get our users username
     query = twitter.get("account/settings.json")
+    import pdb; pdb.set_trace()
     assert query.ok
     result = query.json()
     username = result["screen_name"]
