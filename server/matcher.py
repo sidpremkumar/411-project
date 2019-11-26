@@ -58,6 +58,7 @@ class Matcher(object):
         # Keep track of the dog with max similarity
         max_similarity = 0
         max_dog = None
+        all_data = {}
 
         for dog in dogs:
             # Calculate image similarity
@@ -70,12 +71,16 @@ class Matcher(object):
 
             # If this beats our previous max, replace it
             sum_similarity = image_similar + tone_similar
+
+            # Keep track of all data to return to the user
+            all_data[dog] = int(sum_similarity)
+
             if sum_similarity > max_similarity:
                 max_similarity = sum_similarity
                 max_dog = dog
 
         # Return relevant data
-        return max_dog, max_similarity
+        return (max_dog, max_similarity), all_data
 
     def calculate_similarity(self, list_a, list_b):
         """
