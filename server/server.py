@@ -18,12 +18,14 @@ from pymongo import MongoClient
 from string_analyzer import StringAnalyser
 from twitter_client import TwitterClient
 from image_analysis import ImageAnalyser
+from matcher import Matcher
 
 
 # Global Variables
 string_analyzer = StringAnalyser()
 twitter_client = TwitterClient()
 image_analyzer = ImageAnalyser()
+matcher = Matcher()
 # Create our flask object
 app = Flask(__name__)
 app.secret_key = "supersekrit"
@@ -40,6 +42,7 @@ DATABASE_SCHEMA = {
     'username': None,
     'twitter_analysis': None,
     'image_analysis': None,
+    'dog_match': None,
 }
 
 
@@ -98,6 +101,33 @@ def homepage():
 
     # Render our home screen with the username
     return render_template('user/homepage.html', username=username, data=data)
+
+@app.route("/match_user", methods=['GET'])
+def match_user():
+    """Function to match our user"""
+    # Get our users username
+    query = twitter.get("account/settings.json")
+    assert query.ok
+    result = query.json()
+    username = result["screen_name"]
+
+    # Get our users data, if they don't have any data create it
+    if db_client.find_one({"username": username}):
+        # Update a users data
+        try:
+            to_insert = db_client.find_one({"username": username})
+            to_insert['dog_match'] = matcher.match_data(to_insert)
+            db_client.update_one({'username': username}, {"$set": to_insert}, upsert=False)
+        except:
+            print(f"[DB]: Something went wrong when getting data for {username}")
+            return render_template('error.html')
+
+    else:
+        print(f"[DB]: No data for {username}")
+        return render_template('error.html')
+
+    # If everything went well return the user the data
+    return render_template('user/match.html', tones=to_insert['dog_match'])
 
 
 @app.route("/get_twitter_data", methods=['GET'])

@@ -7,8 +7,18 @@
         <form action="/get_image_data" method="GET">
              <input type = "submit" value = "Image">
         </form>
+        <form action="/match_user" method="GET">
+             <input type = "submit" value = "Dog">
+        </form>
+        {% if data['dog_match'] %}
+            <p> Dog Type: {{ data['dog_match'] }} </p>
+        {% endif %}
         {% if data['twitter_analysis'] %}
             <p> Twitter Analysis: {{ data['twitter_analysis'] }} </p>
         {% endif %}
+        {% if data['image_analysis'] %}
+            <p> Image Analysis: {{ data['image_analysis'] }} </p>
+        {% endif %}
+
     </body>
 </html>
