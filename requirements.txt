@@ -4,3 +4,4 @@ flask
 tweepy
 pymongo
 gunicorn
+flask_dance
