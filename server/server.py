@@ -35,7 +35,6 @@ blueprint = make_twitter_blueprint(
 )
 app.register_blueprint(blueprint, url_prefix="/login")
 # Create our database data
-import pdb; pdb.set_trace()
 client = MongoClient(f"mongodb://{os.environ['MONGO_USER']}:{os.environ['MONGO_PASS']}>@ds063160.mlab.com:63160/woof-are-you")
 database = client.local
 db_client = database.user_data
