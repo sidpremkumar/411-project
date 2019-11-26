@@ -40,7 +40,7 @@ DB_HOST = 'ds063160.mlab.com'
 DB_PORT = 63160
 DB_USER = os.environ['MONGO_USER']
 DB_PASS = os.environ['MONGO_PASS']
-connection = MongoClient(DB_HOST, DB_PORT)
+connection = MongoClient(DB_HOST, DB_PORT, retryWrites=False)
 db = connection[DB_NAME]
 db.authenticate(DB_USER, DB_PASS)
 db_client = db.user_data
