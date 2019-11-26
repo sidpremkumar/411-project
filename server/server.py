@@ -144,7 +144,7 @@ def match_user():
         # Update a users data
         try:
             to_insert = db_client.find_one({"username": username})
-            match_ret = matcher.match_data(to_insert)
+            match_ret, all_data = matcher.match_data(to_insert)
             match_ret = (match_ret[0], int(match_ret[1]))
             to_insert['dog_match'] = match_ret
             db_client.update_one({'username': username}, {"$set": to_insert}, upsert=False)
@@ -159,7 +159,8 @@ def match_user():
     # If everything went well return the user the data
     return render_template('user/match.html',
                            data=to_insert,
-                           local_images=LOCAL_DOG_IMAGES)
+                           local_images=LOCAL_DOG_IMAGES,
+                           all_data=all_data,)
 
 
 @app.route("/get_twitter_data", methods=['GET'])
