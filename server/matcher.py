@@ -14,6 +14,8 @@ DOG_TONES = {
     'Golden Retriever': ['Tentative', 'Joy', 'Tentative'],
     'German Shepherd': ['Tentative', 'Joy', 'Tentative'],
     'Yorkshire Terrier': ['Confident', 'Confident', 'Confident'],
+    'Poodle': ['Joy', 'Analytical', 'Joy', 'Analytical', 'Analytical', 'Tentative', 'Analytical', 'Joy'],
+    'Beagle': ['Joy', 'Sadness', 'Tentative', 'Tentative', 'Sadness', 'Analytical', 'Joy', 'Analytical'],
 }
 DOG_IMAGES = {
     'Labrador': ['Labrador retriever dog', 'retriever dog', 'dog', 'domestic animal', 'animal',
@@ -28,6 +30,8 @@ DOG_IMAGES = {
     'Yorkshire Terrier': ['Botanical Garden', 'nature', 'field', 'pasture', 'Yorkshire terrier dog',
                           'terrier dog', 'dog', 'domestic animal', 'animal', 'Formal Garden',
                           'chestnut color', 'pale yellow color'],
+    'Poodle': ['standard poodle', 'poodle dog', 'dog', 'domestic animal', 'animal', 'large poodle', 'ash grey color'],
+    'Beagle': ['beagle dog', 'hound dog', 'dog', 'domestic animal', 'animal', 'beagling (dog)', 'foxhound dog', 'English foxhound dog', 'greenishness color'],
 
 }
 LOCAL_DOG_IMAGES = {
@@ -36,6 +40,8 @@ LOCAL_DOG_IMAGES = {
     'Golden Retriever': 'GoldenRetriever.jpg',
     'German Shepherd': 'GermanShepherd.jpg',
     'Yorkshire Terrier': 'YorkshireTerrier.jpg',
+    'Poodle': 'Poodle.jpg',
+    'Beagle': 'Beagle.jpg'
 }
 
 
