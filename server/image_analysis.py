@@ -55,5 +55,5 @@ class ImageAnalyser(object):
 if __name__ == '__main__':
     # Main method for debugging only
     temp = ImageAnalyser()
-    temp.analyse(
-        'https://watson-developer-cloud.github.io/doc-tutorial-downloads/visual-recognition/visual-recognition-food-fruit.png')
+    print(temp.analyse(
+        'https://d17fnq9dkz9hgj.cloudfront.net/breed-uploads/2018/08/beagle-detail.jpg?bust=1535565158&width=630'))

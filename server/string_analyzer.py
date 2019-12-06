@@ -54,4 +54,4 @@ class StringAnalyser(object):
 if __name__ == '__main__':
     # Main method for debugging only
     temp = StringAnalyser()
-    temp.string_analysis("test")
+    print(temp.string_analysis("The Beagle should look like a miniature Foxhound, and is solid for the size. The Beagle’s moderate size enables the ability to follow on foot. Beagles can also be carried, and they can scurry around in thick underbrush. Their close hard coat protects them from underbrush. Their moderate build enables them to nimbly traverse rough terrain. The Beagle’s amiable personality allows this breed to get along with other dogs and to be a wonderful pet. Beagles are noted for their melodious bay. The deep muzzle allows more room for olfactory receptors, aiding the Beagle’s uncanny sense of smell."))
